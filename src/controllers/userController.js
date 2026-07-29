@@ -15,7 +15,7 @@ export async function createUser(req, res, next) {
   try {
     const {
       fullName, username, phone, password, role, position, salary,
-      birthDate, address, permissions, canAccessSystem = false,
+      birthDate, medicalExamExpiryDate, address, permissions, canAccessSystem = false,
     } = req.body;
     if (canAccessSystem && !["admin", "director", "teacher"].includes(role)) {
       throw new AppError("Noto‘g‘ri foydalanuvchi roli.", 400);
@@ -35,6 +35,7 @@ export async function createUser(req, res, next) {
       position,
       salary,
       birthDate: birthDate || null,
+      medicalExamExpiryDate: medicalExamExpiryDate || null,
       address,
       permissions: canAccessSystem ? permissions : [],
       canAccessSystem,
@@ -58,11 +59,11 @@ export async function updateUser(req, res, next) {
 
     const allowed = [
       "fullName", "username", "phone", "role", "position", "salary",
-      "birthDate", "address", "isActive", "permissions", "canAccessSystem",
+      "birthDate", "medicalExamExpiryDate", "address", "isActive", "permissions", "canAccessSystem",
     ];
     for (const field of allowed) {
       if (Object.hasOwn(req.body, field)) {
-        user[field] = field === "birthDate" && !req.body[field]
+        user[field] = ["birthDate", "medicalExamExpiryDate"].includes(field) && !req.body[field]
           ? null
           : req.body[field];
       }

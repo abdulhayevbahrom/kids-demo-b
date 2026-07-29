@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 export const USER_ROLES = ["admin", "director", "teacher", "parent"];
 export const USER_PERMISSIONS = [
   "dashboard", "groups", "children", "employees", "attendance",
-  "payments", "debtors", "expenses", "salaries", "daily", "announcements", "reports",
+  "payments", "debtors", "expenses", "salaries", "inventory", "daily", "announcements", "reports",
 ];
 
 const userSchema = new mongoose.Schema(
@@ -72,6 +72,10 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    medicalExamExpiryDate: {
+      type: Date,
+      default: null,
+    },
     address: {
       type: String,
       trim: true,
@@ -109,6 +113,7 @@ userSchema.methods.toSafeObject = function toSafeObject() {
     position: this.position,
     salary: this.salary,
     birthDate: this.birthDate,
+    medicalExamExpiryDate: this.medicalExamExpiryDate,
     address: this.address,
     isActive: this.isActive,
   };

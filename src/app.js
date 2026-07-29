@@ -6,6 +6,8 @@ import { errorHandler, notFound } from "./middleware/error.js";
 import { authRouter } from "./routes/authRoutes.js";
 import { managementRouter } from "./routes/managementRoutes.js";
 import { userRouter } from "./routes/userRoutes.js";
+import { inventoryRouter } from "./routes/inventoryRoutes.js";
+import { notificationRouter } from "./routes/notificationRoutes.js";
 
 export const app = express();
 
@@ -23,6 +25,8 @@ app.get("/api/health", (_req, res) => {
 });
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
+app.use("/api/inventory", inventoryRouter);
+app.use("/api/notifications", notificationRouter);
 app.use("/api", managementRouter);
 app.use(notFound);
 app.use(errorHandler);

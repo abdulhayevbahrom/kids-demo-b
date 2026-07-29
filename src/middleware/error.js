@@ -12,7 +12,9 @@ export function errorHandler(error, _req, res, _next) {
     statusCode = 409;
     message = error.keyPattern?.username
       ? "Bu login allaqachon band."
-      : "Bu telefon raqami allaqachon ro‘yxatdan o‘tgan.";
+      : error.keyPattern?.name
+        ? "Bu nomdagi mahsulot allaqachon mavjud."
+        : "Bu telefon raqami allaqachon ro‘yxatdan o‘tgan.";
   }
   if (error.name === "ValidationError") {
     statusCode = 400;
